@@ -12,23 +12,18 @@ public class Cadeteria{
     public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value;}
     public List<Pedido> ListadoPedidos { get => listadoPedidos;}
     
-    /* public Cadeteria()
+    public Cadeteria()
     {
-        _pedidos = new List<Pedido>();
-        _nombre = "Cadeteria la prueba";
-        _pedidos.Add(new Pedido{
-            Nro = 1,
-            Observacion = " Es el primer pedido"
-        });
-        _pedidos.Add(new Pedido{
-            Nro = 2,
-            Observacion = " Es el segundo pedido"
-        });
-        _pedidos.Add(new Pedido{
-            Nro = 3,
-            Observacion = " Es el tercer pedido"
-        });
-    } */
+        listadoPedidos = new List<Pedido>();
+        nombre = "Cadeteria la prueba";
+        listadoPedidos.Add(new Pedido(1,"primer pedido", "Manuel", "Av Roca 1000", 123456, ""));
+        listadoPedidos.Add(new Pedido(2,"segundo pedido", "Martin", "Av Roca 2000", 163456, "sdf"));
+        listadoPedidos.Add(new Pedido(3,"tercer pedido", "Marcos", "Av Roca 3000", 24353256, "gdgh"));
+        listadoCadetes = new List<Cadete>();
+        listadoCadetes.Add(new Cadete(0, "Ezequiel", "Av. Roca 3293", 38178237));
+        listadoCadetes.Add(new Cadete(1, "Geronimo", "Av. Colon 2100", 38134437));
+        listadoCadetes.Add(new Cadete(2, "Luca", "Av. Indep 1203", 38160237));
+    } 
     public Cadeteria(string nombre, int telefono){
         Nombre = nombre;
         Telefono = telefono;
@@ -43,36 +38,35 @@ public class Cadeteria{
         return cadeteriaSingleton;
     }
 
-    public void DarAltaPedido(string obs, string nomCliente, string direccion, int telefono, string referencia){
-        Pedido miPedido = new Pedido(listadoPedidos.Count+1, obs, Estados.pendiente, nomCliente, direccion, telefono, referencia);
+    public Pedido DarAltaPedido(string obs, string nomCliente, string direccion, int telefono, string referencia){
+        Pedido miPedido = new Pedido(listadoPedidos.Count+1, obs, nomCliente, direccion, telefono, referencia);
         listadoPedidos.Add(miPedido);
+        return miPedido;
     }
     
-    public void AsignarCadeteAPedido(int idCadete, int numPedido){
+    public Pedido AsignarPedido(int idCadete, int numPedido){
         Pedido pedido = listadoPedidos.Find(ped => ped.Numero == numPedido);
         if(pedido != null){
             pedido.IdCadete = idCadete;
         }
+        return pedido;
     }
 
-    public void ReasignarPedido(int numPedido, int idCadeteNuevo){
+    public Pedido ReasignarPedido(int numPedido, int idCadeteNuevo){
         Pedido pedido = listadoPedidos.Find(ped => ped.Numero == numPedido);
         if(pedido != null){
             pedido.IdCadete = idCadeteNuevo;
         }
+        return pedido;
 
         
     }
 
-    public void CambiarEstadoPedido(int numPedido, int estado){
-        Pedido pedido;
-        Estados nuevoEstado = Estados.entregado;
-        if(estado == 2) nuevoEstado = Estados.cancelado;
-        foreach (var item in listadoPedidos){
-            if(item.Numero == numPedido){
-                item.CambiarEstado(nuevoEstado);
-            }
-        }
+    public Pedido CambiarEstadoPedido(int numPedido, int estado){
+        Estados nuevoEstado = (Estados) estado;
+        Pedido pedido = listadoPedidos.Find(ped => ped.Numero == numPedido);
+        pedido.CambiarEstado(nuevoEstado);
+        return pedido;
     }
 
     public float JornalACobrar(int id){
@@ -105,6 +99,15 @@ public int CantidadPedidos(){
         }
         return cant;
 
+    }
+
+    public List<Pedido> GetPedidos(){
+        return listadoPedidos;
+    }
+
+    public Pedido AgregarPedido(Pedido pedido){
+        listadoPedidos.Add(pedido);
+        return pedido;
     }
     
 }
