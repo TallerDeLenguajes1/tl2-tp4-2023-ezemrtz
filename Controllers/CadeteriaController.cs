@@ -38,6 +38,14 @@ public class CadeteriaController : ControllerBase
         return Ok(cadetes);
     }
 
+    [HttpGet]
+    [Route("Informe")]
+    public ActionResult<Informe> GetInforme(){
+        cadeteria.HacerInforme();
+        var informe = cadeteria.GetInforme();
+        return Ok(informe);
+    }
+
     [HttpPost("AgregarPedido")] //agrega datos
     public ActionResult<Pedido> AgregarPedido(string obs, string nomCliente, string direccion, int telefono, string referencia)
     {

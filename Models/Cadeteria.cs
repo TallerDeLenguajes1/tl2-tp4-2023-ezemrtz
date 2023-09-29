@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic;
+
 namespace Web_Api;
 
 public class Cadeteria{
@@ -113,6 +115,28 @@ public int CantidadPedidos(){
     public Pedido AgregarPedido(Pedido pedido){
         listadoPedidos.Add(pedido);
         return pedido;
+    }
+
+    public void HacerInforme(){
+        List<InformeCadete> listInfCad = new List<InformeCadete>();
+        float montoTotal = 0;
+        float promedio = 0;
+        foreach (var cad in listadoCadetes)
+        {
+            int cantPedCad = listadoPedidos.Count(ped => ped.IdCadete == cad.Id);
+            int cantPedEnvCad = listadoPedidos.Count(ped => ped.IdCadete == cad.Id & ped.Estado == Estados.entregado);
+            float jornal = cantPedEnvCad * 500;
+            var informeCadete = new InformeCadete(cantPedCad,cantPedEnvCad,jornal);
+            listInfCad.Add(informeCadete);
+        }
+        listInfCad.ForEach(cad => montoTotal += cad.MontoGanado);
+        if(listadoCadetes.Count != 0) promedio = (float)(montoTotal/500) / listadoCadetes.Count;
+        
+        this.informe = new Informe(listInfCad,montoTotal,promedio);
+    }
+
+    public Informe GetInforme(){
+        return informe;
     }
     
 }
