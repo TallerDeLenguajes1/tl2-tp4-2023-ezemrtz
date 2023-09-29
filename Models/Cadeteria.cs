@@ -6,6 +6,7 @@ public class Cadeteria{
     private List<Cadete> listadoCadetes;
     private List<Pedido> listadoPedidos;
     private static Cadeteria cadeteriaSingleton;
+    private Informe informe;
 
     public string Nombre { get => nombre; set => nombre = value; }
     public int Telefono { get => telefono; set => telefono = value; }
@@ -45,16 +46,18 @@ public class Cadeteria{
     }
     
     public Pedido AsignarPedido(int idCadete, int numPedido){
-        Pedido pedido = listadoPedidos.Find(ped => ped.Numero == numPedido);
-        if(pedido != null){
+        Pedido? pedido = listadoPedidos.Find(ped => ped.Numero == numPedido);
+        Cadete? cadete = listadoCadetes.Find(cad => cad.Id == idCadete);
+        if(pedido != null & cadete != null){
             pedido.IdCadete = idCadete;
         }
         return pedido;
     }
 
     public Pedido ReasignarPedido(int numPedido, int idCadeteNuevo){
-        Pedido pedido = listadoPedidos.Find(ped => ped.Numero == numPedido);
-        if(pedido != null){
+        Pedido? pedido = listadoPedidos.Find(ped => ped.Numero == numPedido);
+        Cadete? cadete = listadoCadetes.Find(cad => cad.Id == idCadeteNuevo);
+        if(pedido != null & cadete != null){
             pedido.IdCadete = idCadeteNuevo;
         }
         return pedido;
@@ -64,8 +67,10 @@ public class Cadeteria{
 
     public Pedido CambiarEstadoPedido(int numPedido, int estado){
         Estados nuevoEstado = (Estados) estado;
-        Pedido pedido = listadoPedidos.Find(ped => ped.Numero == numPedido);
-        pedido.CambiarEstado(nuevoEstado);
+        Pedido? pedido = listadoPedidos.Find(ped => ped.Numero == numPedido);
+        if(pedido != null){
+            pedido.CambiarEstado(nuevoEstado);
+        }
         return pedido;
     }
 
