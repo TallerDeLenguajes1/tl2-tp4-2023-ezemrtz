@@ -10,6 +10,7 @@ public class Cadeteria{
     private static Cadeteria instance;
     private Informe informe;
     private AccesoADatosPedidos accesoADatosPedidos;
+    private AccesoADatosCadetes accesoADatosCadetes;
 
     public string Nombre { get => nombre; set => nombre = value; }
     public int Telefono { get => telefono; set => telefono = value; }
@@ -43,6 +44,7 @@ public class Cadeteria{
             var accesoADatosPedidos = new AccesoADatosPedidos();
             instance = accesoADatosCadeteria.Obtener();
             instance.accesoADatosPedidos = accesoADatosPedidos;
+            instance.accesoADatosCadetes = accesoADatosCadetes;
             instance.listadoPedidos = accesoADatosPedidos.Obtener();
             instance.listadoCadetes = accesoADatosCadetes.Obtener();
         }
@@ -65,6 +67,26 @@ public class Cadeteria{
         }
         return pedido;
     }
+
+    public Cadete AddCadete(Cadete cadete){
+        if(cadete != null){
+            listadoCadetes = accesoADatosCadetes.Obtener();
+            listadoCadetes.Add(cadete);
+            cadete.Id = listadoCadetes.Count;
+            accesoADatosCadetes.Guardar(listadoCadetes);
+        }
+        return cadete;
+    }
+
+    public Pedido GetPedido(int id){
+        Pedido pedido = listadoPedidos.FirstOrDefault(ped => ped.Numero == id);
+        return pedido;
+    }
+
+    public Cadete GetCadete(int id){
+        Cadete cadete = listadoCadetes.FirstOrDefault(cad => cad.Id == id);
+        return cadete;
+    }
     
     public Pedido AsignarPedido(int idCadete, int numPedido){
         listadoPedidos = accesoADatosPedidos.Obtener();
@@ -86,8 +108,6 @@ public class Cadeteria{
             accesoADatosPedidos.Guardar(listadoPedidos);
         }
         return pedido;
-
-        
     }
 
     public Pedido CambiarEstadoPedido(int numPedido, int estado){

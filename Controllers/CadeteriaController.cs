@@ -30,12 +30,24 @@ public class CadeteriaController : ControllerBase
         return Ok(pedidos);
     }
 
+    [HttpGet("Pedido")]
+    public ActionResult<Pedido> GetPedido(int id){
+        var pedido = cadeteria.GetPedido(id);
+        return Ok(pedido);
+    }
+
     [HttpGet] 
     [Route("Cadetes")]
     public ActionResult<IEnumerable<Pedido>> GetCadetes()
     {
         var cadetes = cadeteria.ListadoCadetes;
         return Ok(cadetes);
+    }
+
+    [HttpGet("Cadete")]
+    public ActionResult<Pedido> GetCadete(int id){
+        var cadete = cadeteria.GetCadete(id);
+        return Ok(cadete);
     }
 
     [HttpGet]
@@ -52,6 +64,12 @@ public class CadeteriaController : ControllerBase
         
         var nuevoPedido = cadeteria.AddPedido(pedido);
         return Ok(nuevoPedido);
+    }
+
+    [HttpPost("AgregarCadete")]
+    public ActionResult<Cadete> AddCadete(Cadete cadete){
+        var nuevoCadete = cadeteria.AddCadete(cadete);
+        return Ok(nuevoCadete);
     }
 
     [HttpPut("AsignarPedido")] //modifica datos
