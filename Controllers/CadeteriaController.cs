@@ -13,7 +13,7 @@ public class CadeteriaController : ControllerBase
     public CadeteriaController(ILogger<CadeteriaController> logger)
     {
         _logger = logger;
-        cadeteria = Cadeteria.GetCadeteria();//para poder usar el patron de diseño singleton de la cadeteria para tener persistencia de datos
+        cadeteria = Cadeteria.GetInstance();//para poder usar el patron de diseño singleton de la cadeteria para tener persistencia de datos
     }
 
     [HttpGet] 

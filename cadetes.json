@@ -1,0 +1,20 @@
+[
+    {
+        "Id": 1,
+        "Nombre": "Martin",
+        "Direccion": "Av. Aconquija 1000",
+        "Telefono": 381001
+    },
+    {
+        "Id": 2,
+        "Nombre": "Lucas",
+        "Direccion": "Av. Aconquija 2000",
+        "Telefono": 3810003
+    },
+    {
+        "id": 3,
+        "Nombre": "Marcos",
+        "Direccion": "Av. Aconquija 4000",
+        "Telefono": 381005
+    }
+]
