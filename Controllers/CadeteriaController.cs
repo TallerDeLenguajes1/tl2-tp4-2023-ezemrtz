@@ -47,10 +47,10 @@ public class CadeteriaController : ControllerBase
     }
 
     [HttpPost("AgregarPedido")] //agrega datos
-    public ActionResult<Pedido> AgregarPedido(string obs, string nomCliente, string direccion, int telefono, string referencia)
+    public ActionResult<Pedido> AgregarPedido(Pedido pedido)
     {
         
-        var nuevoPedido = cadeteria.DarAltaPedido(obs, nomCliente, direccion,  telefono, referencia);
+        var nuevoPedido = cadeteria.AddPedido(pedido);
         return Ok(nuevoPedido);
     }
 

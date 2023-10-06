@@ -23,9 +23,9 @@ public class Cadeteria{
         listadoPedidos.Add(new Pedido(2,"segundo pedido", "Martin", "Av Roca 2000", 163456, "sdf"));
         listadoPedidos.Add(new Pedido(3,"tercer pedido", "Marcos", "Av Roca 3000", 24353256, "gdgh"));
         listadoCadetes = new List<Cadete>();
-        listadoCadetes.Add(new Cadete(0, "Ezequiel", "Av. Roca 3293", 38178237));
-        listadoCadetes.Add(new Cadete(1, "Geronimo", "Av. Colon 2100", 38134437));
-        listadoCadetes.Add(new Cadete(2, "Luca", "Av. Indep 1203", 38160237));
+        listadoCadetes.Add(new Cadete(1, "Ezequiel", "Av. Roca 3293", 38178237));
+        listadoCadetes.Add(new Cadete(2, "Geronimo", "Av. Colon 2100", 38134437));
+        listadoCadetes.Add(new Cadete(3, "Luca", "Av. Indep 1203", 38160237));
     } 
     public Cadeteria(string nombre, int telefono){
         Nombre = nombre;
@@ -45,6 +45,15 @@ public class Cadeteria{
         Pedido miPedido = new Pedido(listadoPedidos.Count+1, obs, nomCliente, direccion, telefono, referencia);
         listadoPedidos.Add(miPedido);
         return miPedido;
+    }
+
+    public Pedido AddPedido(Pedido pedido){
+        if(pedido!=null){
+            listadoPedidos.Add(pedido);
+            pedido.Numero = listadoPedidos.Count;
+            pedido.Estado = Estados.pendiente;
+        }
+        return pedido;
     }
     
     public Pedido AsignarPedido(int idCadete, int numPedido){

@@ -13,6 +13,13 @@ public class Pedido{
     private int idCadete;
     private Estados estado;
 
+    public Pedido(){
+        Numero = 0;
+        Observacion = "";
+        Client = new Cliente("", "", 0, "");
+        IdCadete = 0;
+        Estado = Estados.pendiente;
+    }
     public Pedido(int numero, string observacion, string nombre, string direccion, int telefono, string referencia){
         Client = new Cliente(nombre, direccion, telefono, referencia);
         Numero = numero;
